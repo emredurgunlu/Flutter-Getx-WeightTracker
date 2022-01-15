@@ -11,45 +11,45 @@ class Calculation extends StatelessWidget {
   Widget build(BuildContext context) {
     final RemoteApi r = Get.find();
 
-    return Obx(
-      () => Column(
-        children: [
-          TextField(
-            textAlign: TextAlign.center,
-            autofocus: true,
-            cursorColor: Colors.black,
-            controller: r.textEdit,
-            onChanged: (String value1) {
-              r.textEdit.value = TextEditingValue(
-                text: value1,
-                selection: TextSelection.collapsed(offset: value1.length),
-              );
-            },
-            onSubmitted: (String value2) {
-              r.query = value2;
-              r.textEdit.value = const TextEditingValue(
-                text: "",
-              );
-              r.nutritionList.value = r.fetchList();
-            },
-            decoration: InputDecoration(
-              suffixIcon: IconButton(
-                  onPressed: () {
-                    Get.defaultDialog(
-                      title: "Hello",
-                      content: SizedBox(
-                        width: Get.width/2,
-                        child: const Text(
-                          "Please input a text containing food or drink items. If you wish to calculate a specific quantity, you may prefix a quantity before an item. For example, 3 tomatoes and 1lb beef brisket and 300g potato. If no quantity is specified, the default quantity is 100 grams.",
-                          textAlign: TextAlign.center,
-                        ),
+    return Column(
+      children: [
+        TextField(
+          textAlign: TextAlign.center,
+          autofocus: true,
+          cursorColor: Colors.black,
+          controller: r.textEdit,
+          onChanged: (String value1) {
+            r.textEdit.value = TextEditingValue(
+              text: value1,
+              selection: TextSelection.collapsed(offset: value1.length),
+            );
+          },
+          onSubmitted: (String value2) {
+            r.query = value2;
+            r.textEdit.value = const TextEditingValue(
+              text: "",
+            );
+            r.nutritionList.value = r.fetchList();
+          },
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+                onPressed: () {
+                  Get.defaultDialog(
+                    title: "Hello",
+                    content: SizedBox(
+                      width: Get.width / 2,
+                      child: const Text(
+                        "Please input a text containing food or drink items. If you wish to calculate a specific quantity, you may prefix a quantity before an item. For example, 3 tomatoes and 1lb beef brisket and 300g potato. If no quantity is specified, the default quantity is 100 grams.",
+                        textAlign: TextAlign.center,
                       ),
-                    );
-                  },
-                  icon: const Icon(Icons.info)),
-            ),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.info)),
           ),
-          FutureBuilder<List<NutritionModel>>(
+        ),
+        Obx(
+          () => FutureBuilder<List<NutritionModel>>(
             future: r.nutritionList.value,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -107,8 +107,8 @@ class Calculation extends StatelessWidget {
               }
             },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
