@@ -11,7 +11,7 @@ class History extends StatelessWidget {
     final Controller c = Get.find();
 
     return Padding(
-      padding: EdgeInsets.fromLTRB((Get.height / 10), 8, (Get.height / 10), 8),
+      padding: EdgeInsets.fromLTRB((Get.width / 25), 8, (Get.width / 25), 8),
       child: Obx(
         () => ListView(
           physics: const BouncingScrollPhysics(),
